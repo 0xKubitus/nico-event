@@ -17,6 +17,10 @@ class Event < ApplicationRecord
     #if start_date.present? && start_date < Date.today
       #errors.add(:start_date, "can't be in the past")
     #end
+  #validates :stripe_customer_id,
+   #presence: true,
+   #format: .....???.....
+
   #end
 
   #def validate_duration
