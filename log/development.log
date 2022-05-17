@@ -15298,3 +15298,586 @@ AttendanceMailer#booking_email: processed outbound mail in 3.0ms
   [1m[36mAttendance Create (0.3ms)[0m  [1m[32mINSERT INTO "attendances" ("attendee_id", "event_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["attendee_id", 2], ["event_id", 4], ["created_at", "2022-05-17 00:45:10.067888"], ["updated_at", "2022-05-17 00:45:10.067888"]]
 AttendanceMailer#booking_email: processed outbound mail in 4.3ms
   [1m[35m (0.4ms)[0m  [1m[31mROLLBACK[0m
+  [1m[35m (20304.7ms)[0m  [1m[35mCREATE DATABASE "EventBrite_byNico_development" ENCODING = 'unicode'[0m
+  ↳ bin/rails:9
+  [1m[35m (3470.0ms)[0m  [1m[35mCREATE DATABASE "EventBrite_byNico_test" ENCODING = 'unicode'[0m
+  ↳ bin/rails:9
+  [1m[35m (386.8ms)[0m  [1m[35mDROP DATABASE IF EXISTS "EventBrite_byNico_development"[0m
+  ↳ bin/rails:9
+  [1m[35m (289.9ms)[0m  [1m[35mDROP DATABASE IF EXISTS "EventBrite_byNico_test"[0m
+  ↳ bin/rails:9
+  [1m[35m (5631.1ms)[0m  [1m[35mCREATE DATABASE "EventBrite_byNico_development" ENCODING = 'unicode'[0m
+  ↳ bin/rails:9
+  [1m[35m (11713.5ms)[0m  [1m[35mCREATE DATABASE "EventBrite_byNico_test" ENCODING = 'unicode'[0m
+  ↳ bin/rails:9
+  [1m[35mSQL (450.9ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  ↳ db/schema.rb:16
+  [1m[35m (26.4ms)[0m  [1m[35mDROP TABLE IF EXISTS "attendances" CASCADE[0m
+  ↳ db/schema.rb:18
+  [1m[35m (1688.1ms)[0m  [1m[35mCREATE TABLE "attendances" ("id" bigserial primary key, "stripe_customer_id" character varying, "attendee_id" bigint, "event_id" bigint, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  ↳ db/schema.rb:18
+  [1m[35m (182.5ms)[0m  [1m[35mCREATE  INDEX  "index_attendances_on_attendee_id" ON "attendances"  ("attendee_id")[0m
+  ↳ db/schema.rb:18
+  [1m[35m (279.5ms)[0m  [1m[35mCREATE  INDEX  "index_attendances_on_event_id" ON "attendances"  ("event_id")[0m
+  ↳ db/schema.rb:18
+  [1m[35m (0.3ms)[0m  [1m[35mDROP TABLE IF EXISTS "events" CASCADE[0m
+  ↳ db/schema.rb:28
+  [1m[35m (1222.3ms)[0m  [1m[35mCREATE TABLE "events" ("id" bigserial primary key, "title" character varying, "description" text, "location" character varying, "start_date" timestamp, "duration" integer, "price" integer, "admin_id" bigint, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  ↳ db/schema.rb:28
+  [1m[35m (251.1ms)[0m  [1m[35mCREATE  INDEX  "index_events_on_admin_id" ON "events"  ("admin_id")[0m
+  ↳ db/schema.rb:28
+  [1m[35m (0.6ms)[0m  [1m[35mDROP TABLE IF EXISTS "users" CASCADE[0m
+  ↳ db/schema.rb:41
+  [1m[35m (456.9ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "email" character varying DEFAULT '' NOT NULL, "encrypted_password" character varying DEFAULT '' NOT NULL, "first_name" character varying, "last_name" character varying, "bio" text, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  ↳ db/schema.rb:41
+  [1m[35m (337.7ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  ↳ db/schema.rb:13
+  [1m[35m (67.5ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ db/schema.rb:13
+  [1m[35m (86.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20220516133329)[0m
+  ↳ db/schema.rb:13
+  [1m[35m (71.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20220516130319),
+(20220516130053);
+
+[0m
+  ↳ db/schema.rb:13
+  [1m[35m (582.2ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  ↳ db/schema.rb:13
+  [1m[36mActiveRecord::InternalMetadata Load (1.3ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  ↳ db/schema.rb:13
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/schema.rb:13
+  [1m[36mActiveRecord::InternalMetadata Create (0.9ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2022-05-17 09:43:50.308147"], ["updated_at", "2022-05-17 09:43:50.308147"]]
+  ↳ db/schema.rb:13
+  [1m[35m (116.9ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/schema.rb:13
+  [1m[36mActiveRecord::InternalMetadata Load (0.6ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  ↳ bin/rails:9
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ bin/rails:9
+  [1m[35m (0.2ms)[0m  [1m[35mCOMMIT[0m
+  ↳ bin/rails:9
+  [1m[35mSQL (0.4ms)[0m  [1m[35mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  ↳ db/schema.rb:16
+  [1m[35m (4.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "attendances" CASCADE[0m
+  ↳ db/schema.rb:18
+  [1m[35m (796.6ms)[0m  [1m[35mCREATE TABLE "attendances" ("id" bigserial primary key, "stripe_customer_id" character varying, "attendee_id" bigint, "event_id" bigint, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  ↳ db/schema.rb:18
+  [1m[35m (159.2ms)[0m  [1m[35mCREATE  INDEX  "index_attendances_on_attendee_id" ON "attendances"  ("attendee_id")[0m
+  ↳ db/schema.rb:18
+  [1m[35m (244.1ms)[0m  [1m[35mCREATE  INDEX  "index_attendances_on_event_id" ON "attendances"  ("event_id")[0m
+  ↳ db/schema.rb:18
+  [1m[35m (1.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "events" CASCADE[0m
+  ↳ db/schema.rb:28
+  [1m[35m (422.7ms)[0m  [1m[35mCREATE TABLE "events" ("id" bigserial primary key, "title" character varying, "description" text, "location" character varying, "start_date" timestamp, "duration" integer, "price" integer, "admin_id" bigint, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  ↳ db/schema.rb:28
+  [1m[35m (195.3ms)[0m  [1m[35mCREATE  INDEX  "index_events_on_admin_id" ON "events"  ("admin_id")[0m
+  ↳ db/schema.rb:28
+  [1m[35m (1.2ms)[0m  [1m[35mDROP TABLE IF EXISTS "users" CASCADE[0m
+  ↳ db/schema.rb:41
+  [1m[35m (680.9ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "email" character varying DEFAULT '' NOT NULL, "encrypted_password" character varying DEFAULT '' NOT NULL, "first_name" character varying, "last_name" character varying, "bio" text, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  ↳ db/schema.rb:41
+  [1m[35m (370.8ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  ↳ db/schema.rb:13
+  [1m[35m (1.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ db/schema.rb:13
+  [1m[35m (22.8ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES (20220516133329)[0m
+  ↳ db/schema.rb:13
+  [1m[35m (15.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" (version) VALUES
+(20220516130319),
+(20220516130053);
+
+[0m
+  ↳ db/schema.rb:13
+  [1m[35m (248.6ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL)[0m
+  ↳ db/schema.rb:13
+  [1m[36mActiveRecord::InternalMetadata Load (0.4ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  ↳ db/schema.rb:13
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/schema.rb:13
+  [1m[36mActiveRecord::InternalMetadata Create (0.4ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2022-05-17 09:43:53.676969"], ["updated_at", "2022-05-17 09:43:53.676969"]]
+  ↳ db/schema.rb:13
+  [1m[35m (11.2ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/schema.rb:13
+  [1m[36mActiveRecord::InternalMetadata Load (0.3ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  ↳ bin/rails:9
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ bin/rails:9
+  [1m[36mActiveRecord::InternalMetadata Update (0.4ms)[0m  [1m[33mUPDATE "ar_internal_metadata" SET "value" = $1, "updated_at" = $2 WHERE "ar_internal_metadata"."key" = $3[0m  [["value", "test"], ["updated_at", "2022-05-17 09:43:53.692296"], ["key", "environment"]]
+  ↳ bin/rails:9
+  [1m[35m (12.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ bin/rails:9
+  [1m[35m (0.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  ↳ bin/rails:9
+  [1m[36mUser Load (0.6ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ db/seeds.rb:1
+  [1m[36mEvent Load (0.6ms)[0m  [1m[34mSELECT "events".* FROM "events"[0m
+  ↳ db/seeds.rb:2
+  [1m[36mAttendance Load (0.4ms)[0m  [1m[34mSELECT "attendances".* FROM "attendances"[0m
+  ↳ db/seeds.rb:3
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/seeds.rb:8
+  [1m[36mUser Create (0.5ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "first_name", "last_name", "bio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["email", "testkubitus0@yopmail.com"], ["encrypted_password", "ca7n87"], ["first_name", "Elliot"], ["last_name", "Ward"], ["bio", "Did you steal a meal from Neal McBeal the Navy Seal?"], ["created_at", "2022-05-17 09:44:03.852162"], ["updated_at", "2022-05-17 09:44:03.852162"]]
+  ↳ db/seeds.rb:8
+  Rendering user_mailer/welcome_email.html.erb within layouts/mailer
+  Rendered user_mailer/welcome_email.html.erb within layouts/mailer (3.0ms)
+  Rendering user_mailer/welcome_email.text.erb within layouts/mailer
+  Rendered user_mailer/welcome_email.text.erb within layouts/mailer (0.3ms)
+UserMailer#welcome_email: processed outbound mail in 1878.8ms
+Sent mail to testkubitus0@yopmail.com (284.1ms)
+Date: Tue, 17 May 2022 11:44:05 +0200
+From: from@kubitus.com
+To: testkubitus0@yopmail.com
+Message-ID: <62836e65c44dc_6081211d0-377@Starlight.mail>
+Subject: =?UTF-8?Q?Bienvenue_chez_The_Events_Project_by_Kubitus_!_=28compte?=
+ =?UTF-8?Q?_utilisateur_cr=C3=A9=C3=A9=29?=
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="--==_mimepart_62836e65c0a05_6081211d0-4ec";
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+
+----==_mimepart_62836e65c0a05_6081211d0-4ec
+Content-Type: text/plain;
+ charset=UTF-8
+Content-Transfer-Encoding: base64
+
+U2FsdXQgRWxsaW90IGV0IGJpZW52ZW51ZSBjaGV6IFRoZSBFdmVudHMgUHJv
+amVjdCBieSBLdWJpdHVzICENCj09PT09PT09PT09PT09PT09PT09PT09PT09
+PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0NCiANClR1IHQnZXMg
+aW5zY3JpdCBzdXIgbW9uc2l0ZS5mciBlbiB1dGlsaXNhbnQgbCdlLW1haWwg
+c3VpdmFudCA6IHRlc3RrdWJpdHVzMEB5b3BtYWlsLmNvbS4NCiANClBvdXIg
+YWNjw6lkZXIgw6AgdG9uIGVzcGFjZSBjbGllbnQsIGNvbm5lY3RlLXRvaSB2
+aWEgOiBodHRwczovL2V2ZW50YnJpdGUtbmljby5oZXJva3VhcHAuY29tLy4N
+CiANCsOAIHRyw6hzIHZpdGUgc3VyIG1vbnNpdGUuZnIgIQ0K
+
+----==_mimepart_62836e65c0a05_6081211d0-4ec
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<!DOCTYPE html>=0D
+<html>=0D
+  <head>=0D
+    <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf=
+-8" />=0D
+    <style>=0D
+      /* Email styles need to be inline */=0D
+    </style>=0D
+  </head>=0D
+=0D
+  <body>=0D
+    <!DOCTYPE html>=0D
+<html>=0D
+=0D
+  <head>=0D
+    <meta content=3D'text/html; charset=3DUTF-8' http-equiv=3D'Content-Ty=
+pe' />=0D
+  </head>=0D
+=0D
+  <body>=0D
+    <h1>Salut Elliot et bienvenue chez The Events Project by Kubitus !</h=
+1>=0D
+=0D
+    <p>=0D
+      Tu t'es inscrit sur monsite.fr en utilisant l'e-mail suivant : test=
+kubitus0@yopmail.com.=0D
+    </p>=0D
+=0D
+    <p>=0D
+      Pour acc=C3=A9der =C3=A0 ton espace client, connecte-toi via : http=
+s://eventbrite-nico.herokuapp.com/.=0D
+    </p>=0D
+=0D
+    <p> =C3=80 tr=C3=A8s vite sur monsite.fr !=0D
+  </body>=0D
+=0D
+</html>=0D
+  </body>=0D
+</html>=0D
+
+----==_mimepart_62836e65c0a05_6081211d0-4ec--
+
+  [1m[35m (23.0ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/seeds.rb:8
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/seeds.rb:8
+  [1m[36mUser Create (0.5ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "first_name", "last_name", "bio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["email", "testkubitus1@yopmail.com"], ["encrypted_password", "877x70"], ["first_name", "Lionel"], ["last_name", "Toy"], ["bio", "That's sorta been thwarted unfortunately cos Courtney's purportedly falling short of shoring up fourth quadrant support"], ["created_at", "2022-05-17 09:44:06.104326"], ["updated_at", "2022-05-17 09:44:06.104326"]]
+  ↳ db/seeds.rb:8
+  Rendering user_mailer/welcome_email.html.erb within layouts/mailer
+  Rendered user_mailer/welcome_email.html.erb within layouts/mailer (0.1ms)
+  Rendering user_mailer/welcome_email.text.erb within layouts/mailer
+  Rendered user_mailer/welcome_email.text.erb within layouts/mailer (0.0ms)
+UserMailer#welcome_email: processed outbound mail in 14.6ms
+Sent mail to testkubitus1@yopmail.com (288.4ms)
+Date: Tue, 17 May 2022 11:44:06 +0200
+From: from@kubitus.com
+To: testkubitus1@yopmail.com
+Message-ID: <62836e661e276_6081211d0-1df@Starlight.mail>
+Subject: =?UTF-8?Q?Bienvenue_chez_The_Events_Project_by_Kubitus_!_=28compte?=
+ =?UTF-8?Q?_utilisateur_cr=C3=A9=C3=A9=29?=
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="--==_mimepart_62836e661bf71_6081211d0-28f";
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+
+----==_mimepart_62836e661bf71_6081211d0-28f
+Content-Type: text/plain;
+ charset=UTF-8
+Content-Transfer-Encoding: base64
+
+U2FsdXQgTGlvbmVsIGV0IGJpZW52ZW51ZSBjaGV6IFRoZSBFdmVudHMgUHJv
+amVjdCBieSBLdWJpdHVzICENCj09PT09PT09PT09PT09PT09PT09PT09PT09
+PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0NCiANClR1IHQnZXMg
+aW5zY3JpdCBzdXIgbW9uc2l0ZS5mciBlbiB1dGlsaXNhbnQgbCdlLW1haWwg
+c3VpdmFudCA6IHRlc3RrdWJpdHVzMUB5b3BtYWlsLmNvbS4NCiANClBvdXIg
+YWNjw6lkZXIgw6AgdG9uIGVzcGFjZSBjbGllbnQsIGNvbm5lY3RlLXRvaSB2
+aWEgOiBodHRwczovL2V2ZW50YnJpdGUtbmljby5oZXJva3VhcHAuY29tLy4N
+CiANCsOAIHRyw6hzIHZpdGUgc3VyIG1vbnNpdGUuZnIgIQ0K
+
+----==_mimepart_62836e661bf71_6081211d0-28f
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<!DOCTYPE html>=0D
+<html>=0D
+  <head>=0D
+    <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf=
+-8" />=0D
+    <style>=0D
+      /* Email styles need to be inline */=0D
+    </style>=0D
+  </head>=0D
+=0D
+  <body>=0D
+    <!DOCTYPE html>=0D
+<html>=0D
+=0D
+  <head>=0D
+    <meta content=3D'text/html; charset=3DUTF-8' http-equiv=3D'Content-Ty=
+pe' />=0D
+  </head>=0D
+=0D
+  <body>=0D
+    <h1>Salut Lionel et bienvenue chez The Events Project by Kubitus !</h=
+1>=0D
+=0D
+    <p>=0D
+      Tu t'es inscrit sur monsite.fr en utilisant l'e-mail suivant : test=
+kubitus1@yopmail.com.=0D
+    </p>=0D
+=0D
+    <p>=0D
+      Pour acc=C3=A9der =C3=A0 ton espace client, connecte-toi via : http=
+s://eventbrite-nico.herokuapp.com/.=0D
+    </p>=0D
+=0D
+    <p> =C3=80 tr=C3=A8s vite sur monsite.fr !=0D
+  </body>=0D
+=0D
+</html>=0D
+  </body>=0D
+</html>=0D
+
+----==_mimepart_62836e661bf71_6081211d0-28f--
+
+  [1m[35m (328.7ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/seeds.rb:8
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/seeds.rb:8
+  [1m[36mUser Create (0.6ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "first_name", "last_name", "bio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["email", "testkubitus2@yopmail.com"], ["encrypted_password", "nudm9w"], ["first_name", "Ruthie"], ["last_name", "Rogahn"], ["bio", "Portnoy finds joy in hoi polloi boy toy"], ["created_at", "2022-05-17 09:44:06.740649"], ["updated_at", "2022-05-17 09:44:06.740649"]]
+  ↳ db/seeds.rb:8
+  Rendering user_mailer/welcome_email.html.erb within layouts/mailer
+  Rendered user_mailer/welcome_email.html.erb within layouts/mailer (0.1ms)
+  Rendering user_mailer/welcome_email.text.erb within layouts/mailer
+  Rendered user_mailer/welcome_email.text.erb within layouts/mailer (0.0ms)
+UserMailer#welcome_email: processed outbound mail in 22.2ms
+Sent mail to testkubitus2@yopmail.com (313.8ms)
+Date: Tue, 17 May 2022 11:44:06 +0200
+From: from@kubitus.com
+To: testkubitus2@yopmail.com
+Message-ID: <62836e66bbe59_6081211d0147@Starlight.mail>
+Subject: =?UTF-8?Q?Bienvenue_chez_The_Events_Project_by_Kubitus_!_=28compte?=
+ =?UTF-8?Q?_utilisateur_cr=C3=A9=C3=A9=29?=
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="--==_mimepart_62836e66b89b2_6081211d00f0";
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+
+----==_mimepart_62836e66b89b2_6081211d00f0
+Content-Type: text/plain;
+ charset=UTF-8
+Content-Transfer-Encoding: base64
+
+U2FsdXQgUnV0aGllIGV0IGJpZW52ZW51ZSBjaGV6IFRoZSBFdmVudHMgUHJv
+amVjdCBieSBLdWJpdHVzICENCj09PT09PT09PT09PT09PT09PT09PT09PT09
+PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT0NCiANClR1IHQnZXMg
+aW5zY3JpdCBzdXIgbW9uc2l0ZS5mciBlbiB1dGlsaXNhbnQgbCdlLW1haWwg
+c3VpdmFudCA6IHRlc3RrdWJpdHVzMkB5b3BtYWlsLmNvbS4NCiANClBvdXIg
+YWNjw6lkZXIgw6AgdG9uIGVzcGFjZSBjbGllbnQsIGNvbm5lY3RlLXRvaSB2
+aWEgOiBodHRwczovL2V2ZW50YnJpdGUtbmljby5oZXJva3VhcHAuY29tLy4N
+CiANCsOAIHRyw6hzIHZpdGUgc3VyIG1vbnNpdGUuZnIgIQ0K
+
+----==_mimepart_62836e66b89b2_6081211d00f0
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<!DOCTYPE html>=0D
+<html>=0D
+  <head>=0D
+    <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf=
+-8" />=0D
+    <style>=0D
+      /* Email styles need to be inline */=0D
+    </style>=0D
+  </head>=0D
+=0D
+  <body>=0D
+    <!DOCTYPE html>=0D
+<html>=0D
+=0D
+  <head>=0D
+    <meta content=3D'text/html; charset=3DUTF-8' http-equiv=3D'Content-Ty=
+pe' />=0D
+  </head>=0D
+=0D
+  <body>=0D
+    <h1>Salut Ruthie et bienvenue chez The Events Project by Kubitus !</h=
+1>=0D
+=0D
+    <p>=0D
+      Tu t'es inscrit sur monsite.fr en utilisant l'e-mail suivant : test=
+kubitus2@yopmail.com.=0D
+    </p>=0D
+=0D
+    <p>=0D
+      Pour acc=C3=A9der =C3=A0 ton espace client, connecte-toi via : http=
+s://eventbrite-nico.herokuapp.com/.=0D
+    </p>=0D
+=0D
+    <p> =C3=80 tr=C3=A8s vite sur monsite.fr !=0D
+  </body>=0D
+=0D
+</html>=0D
+  </body>=0D
+</html>=0D
+
+----==_mimepart_62836e66b89b2_6081211d00f0--
+
+  [1m[35m (567.8ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/seeds.rb:8
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/seeds.rb:8
+  [1m[36mUser Create (0.4ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "first_name", "last_name", "bio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["email", "testkubitus3@yopmail.com"], ["encrypted_password", "w61o09"], ["first_name", "Geraldo"], ["last_name", "Fadel"], ["bio", "Portnoy finds joy in hoi polloi boy toy"], ["created_at", "2022-05-17 09:44:07.652704"], ["updated_at", "2022-05-17 09:44:07.652704"]]
+  ↳ db/seeds.rb:8
+  Rendering user_mailer/welcome_email.html.erb within layouts/mailer
+  Rendered user_mailer/welcome_email.html.erb within layouts/mailer (0.2ms)
+  Rendering user_mailer/welcome_email.text.erb within layouts/mailer
+  Rendered user_mailer/welcome_email.text.erb within layouts/mailer (0.1ms)
+UserMailer#welcome_email: processed outbound mail in 13.5ms
+Sent mail to testkubitus3@yopmail.com (301.0ms)
+Date: Tue, 17 May 2022 11:44:07 +0200
+From: from@kubitus.com
+To: testkubitus3@yopmail.com
+Message-ID: <62836e67a4de9_6081211d03d1@Starlight.mail>
+Subject: =?UTF-8?Q?Bienvenue_chez_The_Events_Project_by_Kubitus_!_=28compte?=
+ =?UTF-8?Q?_utilisateur_cr=C3=A9=C3=A9=29?=
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="--==_mimepart_62836e67a1f5b_6081211d02a9";
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+
+----==_mimepart_62836e67a1f5b_6081211d02a9
+Content-Type: text/plain;
+ charset=UTF-8
+Content-Transfer-Encoding: base64
+
+U2FsdXQgR2VyYWxkbyBldCBiaWVudmVudWUgY2hleiBUaGUgRXZlbnRzIFBy
+b2plY3QgYnkgS3ViaXR1cyAhDQo9PT09PT09PT09PT09PT09PT09PT09PT09
+PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09DQogDQpUdSB0J2Vz
+IGluc2NyaXQgc3VyIG1vbnNpdGUuZnIgZW4gdXRpbGlzYW50IGwnZS1tYWls
+IHN1aXZhbnQgOiB0ZXN0a3ViaXR1czNAeW9wbWFpbC5jb20uDQogDQpQb3Vy
+IGFjY8OpZGVyIMOgIHRvbiBlc3BhY2UgY2xpZW50LCBjb25uZWN0ZS10b2kg
+dmlhIDogaHR0cHM6Ly9ldmVudGJyaXRlLW5pY28uaGVyb2t1YXBwLmNvbS8u
+DQogDQrDgCB0csOocyB2aXRlIHN1ciBtb25zaXRlLmZyICENCg==
+
+----==_mimepart_62836e67a1f5b_6081211d02a9
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<!DOCTYPE html>=0D
+<html>=0D
+  <head>=0D
+    <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf=
+-8" />=0D
+    <style>=0D
+      /* Email styles need to be inline */=0D
+    </style>=0D
+  </head>=0D
+=0D
+  <body>=0D
+    <!DOCTYPE html>=0D
+<html>=0D
+=0D
+  <head>=0D
+    <meta content=3D'text/html; charset=3DUTF-8' http-equiv=3D'Content-Ty=
+pe' />=0D
+  </head>=0D
+=0D
+  <body>=0D
+    <h1>Salut Geraldo et bienvenue chez The Events Project by Kubitus !</=
+h1>=0D
+=0D
+    <p>=0D
+      Tu t'es inscrit sur monsite.fr en utilisant l'e-mail suivant : test=
+kubitus3@yopmail.com.=0D
+    </p>=0D
+=0D
+    <p>=0D
+      Pour acc=C3=A9der =C3=A0 ton espace client, connecte-toi via : http=
+s://eventbrite-nico.herokuapp.com/.=0D
+    </p>=0D
+=0D
+    <p> =C3=80 tr=C3=A8s vite sur monsite.fr !=0D
+  </body>=0D
+=0D
+</html>=0D
+  </body>=0D
+</html>=0D
+
+----==_mimepart_62836e67a1f5b_6081211d02a9--
+
+  [1m[35m (49.6ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/seeds.rb:8
+  [1m[35m (0.3ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/seeds.rb:8
+  [1m[36mUser Create (3.1ms)[0m  [1m[32mINSERT INTO "users" ("email", "encrypted_password", "first_name", "last_name", "bio", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["email", "testkubitus4@yopmail.com"], ["encrypted_password", "1f6okp"], ["first_name", "Myong"], ["last_name", "Luettgen"], ["bio", "That's sorta been thwarted unfortunately cos Courtney's purportedly falling short of shoring up fourth quadrant support"], ["created_at", "2022-05-17 09:44:08.025615"], ["updated_at", "2022-05-17 09:44:08.025615"]]
+  ↳ db/seeds.rb:8
+  Rendering user_mailer/welcome_email.html.erb within layouts/mailer
+  Rendered user_mailer/welcome_email.html.erb within layouts/mailer (0.2ms)
+  Rendering user_mailer/welcome_email.text.erb within layouts/mailer
+  Rendered user_mailer/welcome_email.text.erb within layouts/mailer (0.1ms)
+UserMailer#welcome_email: processed outbound mail in 20.8ms
+Sent mail to testkubitus4@yopmail.com (315.9ms)
+Date: Tue, 17 May 2022 11:44:08 +0200
+From: from@kubitus.com
+To: testkubitus4@yopmail.com
+Message-ID: <62836e68dce6_6081211d0526@Starlight.mail>
+Subject: =?UTF-8?Q?Bienvenue_chez_The_Events_Project_by_Kubitus_!_=28compte?=
+ =?UTF-8?Q?_utilisateur_cr=C3=A9=C3=A9=29?=
+Mime-Version: 1.0
+Content-Type: multipart/alternative;
+ boundary="--==_mimepart_62836e68aa7e_6081211d04bb";
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+
+
+----==_mimepart_62836e68aa7e_6081211d04bb
+Content-Type: text/plain;
+ charset=UTF-8
+Content-Transfer-Encoding: base64
+
+U2FsdXQgTXlvbmcgZXQgYmllbnZlbnVlIGNoZXogVGhlIEV2ZW50cyBQcm9q
+ZWN0IGJ5IEt1Yml0dXMgIQ0KPT09PT09PT09PT09PT09PT09PT09PT09PT09
+PT09PT09PT09PT09PT09PT09PT09PT09PT09PT09PQ0KIA0KVHUgdCdlcyBp
+bnNjcml0IHN1ciBtb25zaXRlLmZyIGVuIHV0aWxpc2FudCBsJ2UtbWFpbCBz
+dWl2YW50IDogdGVzdGt1Yml0dXM0QHlvcG1haWwuY29tLg0KIA0KUG91ciBh
+Y2PDqWRlciDDoCB0b24gZXNwYWNlIGNsaWVudCwgY29ubmVjdGUtdG9pIHZp
+YSA6IGh0dHBzOi8vZXZlbnRicml0ZS1uaWNvLmhlcm9rdWFwcC5jb20vLg0K
+IA0Kw4AgdHLDqHMgdml0ZSBzdXIgbW9uc2l0ZS5mciAhDQo=
+
+----==_mimepart_62836e68aa7e_6081211d04bb
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: quoted-printable
+
+<!DOCTYPE html>=0D
+<html>=0D
+  <head>=0D
+    <meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Dutf=
+-8" />=0D
+    <style>=0D
+      /* Email styles need to be inline */=0D
+    </style>=0D
+  </head>=0D
+=0D
+  <body>=0D
+    <!DOCTYPE html>=0D
+<html>=0D
+=0D
+  <head>=0D
+    <meta content=3D'text/html; charset=3DUTF-8' http-equiv=3D'Content-Ty=
+pe' />=0D
+  </head>=0D
+=0D
+  <body>=0D
+    <h1>Salut Myong et bienvenue chez The Events Project by Kubitus !</h1=
+>=0D
+=0D
+    <p>=0D
+      Tu t'es inscrit sur monsite.fr en utilisant l'e-mail suivant : test=
+kubitus4@yopmail.com.=0D
+    </p>=0D
+=0D
+    <p>=0D
+      Pour acc=C3=A9der =C3=A0 ton espace client, connecte-toi via : http=
+s://eventbrite-nico.herokuapp.com/.=0D
+    </p>=0D
+=0D
+    <p> =C3=80 tr=C3=A8s vite sur monsite.fr !=0D
+  </body>=0D
+=0D
+</html>=0D
+  </body>=0D
+</html>=0D
+
+----==_mimepart_62836e68aa7e_6081211d04bb--
+
+  [1m[35m (52.4ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/seeds.rb:8
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ db/seeds.rb:27
+  [1m[35m (0.2ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/seeds.rb:28
+  [1m[36mEvent Create (1.2ms)[0m  [1m[32mINSERT INTO "events" ("title", "description", "location", "start_date", "duration", "price", "admin_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["title", "Sing all ye joyful!"], ["description", "[\"Veniam fuga quae.\", \"Et voluptas harum.\"]"], ["location", "Amon Lhaw"], ["start_date", "2024-06-09 00:00:00"], ["duration", 2710], ["price", 950], ["admin_id", 1], ["created_at", "2022-05-17 09:44:08.497053"], ["updated_at", "2022-05-17 09:44:08.497053"]]
+  ↳ db/seeds.rb:28
+  [1m[35m (44.2ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/seeds.rb:28
+  [1m[36mUser Load (1.0ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ db/seeds.rb:27
+  [1m[35m (0.4ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/seeds.rb:28
+  [1m[36mEvent Create (0.4ms)[0m  [1m[32mINSERT INTO "events" ("title", "description", "location", "start_date", "duration", "price", "admin_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["title", "Eärendil was a mariner"], ["description", "[\"Ut recusandae nihil.\", \"Non modi corrupti.\"]"], ["location", "Dorwinion"], ["start_date", "2023-10-24 00:00:00"], ["duration", 6455], ["price", 356], ["admin_id", 5], ["created_at", "2022-05-17 09:44:08.553511"], ["updated_at", "2022-05-17 09:44:08.553511"]]
+  ↳ db/seeds.rb:28
+  [1m[35m (19.0ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/seeds.rb:28
+  [1m[36mUser Load (0.3ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ db/seeds.rb:27
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/seeds.rb:28
+  [1m[36mEvent Create (0.8ms)[0m  [1m[32mINSERT INTO "events" ("title", "description", "location", "start_date", "duration", "price", "admin_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING "id"[0m  [["title", "Song of the Mounds of Mundburg"], ["description", "[\"Vel voluptas cum.\", \"Aut exercitationem est.\"]"], ["location", "Tumhalad"], ["start_date", "2024-04-07 00:00:00"], ["duration", 9320], ["price", 357], ["admin_id", 1], ["created_at", "2022-05-17 09:44:08.576484"], ["updated_at", "2022-05-17 09:44:08.576484"]]
+  ↳ db/seeds.rb:28
+  [1m[35m (11.1ms)[0m  [1m[35mCOMMIT[0m
+  ↳ db/seeds.rb:28
+  [1m[36mEvent Load (0.4ms)[0m  [1m[34mSELECT "events".* FROM "events"[0m
+  ↳ db/seeds.rb:32
+  [1m[36mUser Load (1.1ms)[0m  [1m[34mSELECT "users".* FROM "users"[0m
+  ↳ db/seeds.rb:34
+  [1m[35m (0.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ db/seeds.rb:34
+  [1m[36mAttendance Create (0.6ms)[0m  [1m[32mINSERT INTO "attendances" ("attendee_id", "event_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["attendee_id", 3], ["event_id", 1], ["created_at", "2022-05-17 09:44:08.610928"], ["updated_at", "2022-05-17 09:44:08.610928"]]
+  ↳ db/seeds.rb:34
+AttendanceMailer#booking_email: processed outbound mail in 10.1ms
+  [1m[35m (0.3ms)[0m  [1m[31mROLLBACK[0m
+  ↳ db/seeds.rb:34
