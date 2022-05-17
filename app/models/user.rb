@@ -1,14 +1,17 @@
 class User < ApplicationRecord
   after_create :welcome_send #permet de lancer automatiquement cette methode après chaque création d'1 nouveau User
 
-  #validates :email, :first_name, :last_name, :encrypted_password, presence: true
-  #validates :email, format: { with: /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/, message: "Donne-moi une adresse email valide stp" }
-  #validates :bio, length: { in 2..500 }
-  #validates :encrypted_password, format: { .....???..... }
+  def new_guest_send(attendance)
+    #on récupère l'instance user pour ensuite pouvoir la passer à la view en @user
+    @attendance = attendance
+    @admin = User.find(@attendance.event.admin_id)
 
+    #on définit une variable @url qu'on utilisera dans la view d’e-mail
+    @url  = 'http://monsite.fr/login' 
 
-  has_many :organized_events, foreign_key: 'admin_id', class_name: 'Event'
-  has_many :events_planned, foreign_key: 'attendee_id', class_name: 'Attendance'
+    # c'est cet appel à mail() qui permet d'envoyer l’e-mail en définissant destinataire et sujet.
+    mail(to: @admin.email, subject: 'You have a new guest !') 
+  end
 
 
   # methode pour envoyer un email automatique (cf. methode welcome_email dans "app/mailers/user_mailer.rb") :

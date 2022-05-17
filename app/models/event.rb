@@ -5,7 +5,17 @@ class Event < ApplicationRecord
   #validates :description, length: { in: 10..1000 }
   #validates :price, numericality: { only_integer: true, greater_than: 0 }
   #(last one to add) validate :start_after_now, :validate_duration, on: :create
-
+  class Attendance < ApplicationRecord
+    belongs_to :user
+    belongs_to :event
+    validates :user, presence: true
+    validates :event, presence: true
+    after_create :new_guest_send
+  
+    def new_guest_send
+      UserMailer.new_guest_send(self).deliver_now
+    end
+  end
 
   belongs_to :admin, class_name: "User"
   has_many :attendances
